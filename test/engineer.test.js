@@ -1,4 +1,4 @@
-// const engineer = require('../lib/engineer')
+const engineer = require('../lib/engineer')
 
 describe('engineer class',()=>{
     describe('initializing',()=>{

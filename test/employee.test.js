@@ -1,4 +1,4 @@
-// const employee = require('../lib/employee')
+const employee = require('../lib/employee')
 
 describe('employee class',()=>{
     describe('initializing',()=>{

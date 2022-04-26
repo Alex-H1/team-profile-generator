@@ -1,9 +1,10 @@
-//install packacges
+//install packages
 const inquierer = require('inquirer');
 const fs = require('fs');
-// const manager = require('./lib/manager');
-// const engineer = require('./lib/engineer');
-// const inter = require('./lib/intern');
+const managers = require('./lib/manager');
+const engineers = require('./lib/engineer');
+const interns = require('./lib/intern');
+const makecards = require('./src/makecards')
 employees =[];
 
 // make inquierer prompts
@@ -37,7 +38,7 @@ function engineerQ(){
         }
     ])
     .then((engineerAns)=>{
-        const engineer = new Engineer(engineerAns.name, engineerAns.id, engineerAns.email, engineerAns.github)
+        const engineer = new engineers(engineerAns.name, engineerAns.id, engineerAns.email, engineerAns.github)
         employees.push(engineer);
         switch(engineerAns.addEmp){
             case 'engineer':
@@ -47,7 +48,7 @@ function engineerQ(){
                 internQ();
                 break;
             default:
-                writeToFile();
+                empCards('dist/index.html',makecards(employees));
         }
     })
 } 
@@ -68,13 +69,15 @@ const internQ = () =>{
            name: 'email',
            message: 'what is your intern\'s email address?' 
         },
-        {
-            name: 'school',
-            message: 'what school does/did your intern go to?'
-        }
+        // {
+        //     name: 'school',
+        //     message: 'what school does your intern go to?'
+        // }
     ])
     .then((internAns)=>{
-        const engineer = new Intern(internAns.name, internAns.id, internAns.email, internAns.github)
+        const intern = new interns(internAns.name, internAns.id, internAns.email, );
+        console.log(employees)
+
         employees.push(intern);
         switch(internAns.addEmp){
             case 'engineer':
@@ -84,7 +87,7 @@ const internQ = () =>{
                 internQ();
                 break;
             default:
-                writeToFile();
+                empCards('dist/index.html',makecards(employees));
         }
     })
 }
@@ -117,7 +120,7 @@ const managerQ = () =>{
     }
     ])
     .then((managerAns)=>{
-        const manager = new Manager(managerAns.name, managerAns.id, managerAns.email, managerAns.phone)
+        const manager = new managers(managerAns.name, managerAns.id, managerAns.email, managerAns.phone)
         employees.push(manager);
         console.log(employees)
         switch(managerAns.addEmp){
@@ -128,12 +131,13 @@ const managerQ = () =>{
                 internQ();
                 break;
             default:
-                writeToFile();
+                empCards('dist/index.html',makecards(employees));
         }
     })
 }
 
 function empCards(fileName,data){
+    console.log(data)
     fs.writeFile(fileName,data,(err)=>{
         err?console.error(err): console.log(data)
     })
