@@ -25,7 +25,7 @@ function engineerQ(){
         },
         {
             name: 'github',
-            message: 'what is your engineer\'s GitHub username'
+            message: 'what is your engineer\'s GitHub username?'
         },
         {
             type: 'list',
@@ -52,6 +52,40 @@ function engineerQ(){
 
 // prompt for intern
 //  when selected intern prompt for name, id, email, school, then taken back to menu
+const internQ = () =>{
+    inquierer.prompt([
+        {
+            name: 'name',
+            message: 'what is your inter\'s name?'
+        },
+        {
+            name: 'id',
+            message: 'what is your intern\'s id?'
+        },
+        {
+           name: 'email',
+           message: 'what is your intern\'s email address?' 
+        },
+        {
+            name: 'school',
+            message: 'what school does/did your intern go to?'
+        }
+    ])
+    .then((internAns)=>{
+        const engineer = new Engineer(internAns.name, internAns.id, internAns.email, internAns.github)
+        employees.push(engineer);
+        switch(internAns.addEmp){
+            case 'engineer':
+                engineerQ();
+                break;
+            case 'intern':
+                internQ();
+                break;
+            default:
+                writeToFile();
+        }
+    })
+}
 
 // prompt for manager 
 // prompt for managers name, employee id, email, and office number
