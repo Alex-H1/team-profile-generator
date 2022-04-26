@@ -1,4 +1,4 @@
-// const intern = require('../lib/intern')
+const intern = require('../lib/intern')
 
 describe('intern class',()=>{
     describe('initializing',()=>{

@@ -1,7 +1,9 @@
 //install packacges
 const inquierer = require('inquirer');
 const fs = require('fs');
-const { mainModule } = require('process');
+// const manager = require('./lib/manager');
+// const engineer = require('./lib/engineer');
+// const inter = require('./lib/intern');
 employees =[];
 
 // make inquierer prompts
@@ -72,8 +74,8 @@ const internQ = () =>{
         }
     ])
     .then((internAns)=>{
-        const engineer = new Engineer(internAns.name, internAns.id, internAns.email, internAns.github)
-        employees.push(engineer);
+        const engineer = new Intern(internAns.name, internAns.id, internAns.email, internAns.github)
+        employees.push(intern);
         switch(internAns.addEmp){
             case 'engineer':
                 engineerQ();
@@ -131,7 +133,11 @@ const managerQ = () =>{
     })
 }
 
-
+function empCards(fileName,data){
+    fs.writeFile(fileName,data,(err)=>{
+        err?console.error(err): console.log(data)
+    })
+}
 
 
 
